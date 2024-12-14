@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            background-color: darkgray;
+            height: fit-content;
+        }
+
+        .container div {
+            width: 50%;
+            padding: 20px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            
+        }
+        .note{
+            border: 1px solid grey;
+            
+        }
+        .note:hover{
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            background-color: aliceblue;
+            font-size: large;
+            cursor: pointer;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        form input{
+            margin: 10px;
+            padding: 5px;
+            height: 55px;
+            border-radius: 25px;
+            font-size: large;
+        }
+        #btn{
+            border: none;
+            background-color: blueviolet;
+            font-size: large;
+            font-weight: bold;
+            color: white;
+        }
+        #btn:hover{
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+    <div class="container">
+        <div>
+            <form action="/createNote/" method="post">
+                {% csrf_token %}
+                <input type="text" name="Title" placeholder="Title">
+                <input type="text" name="Content" placeholder="Content">
+                <input id="btn" type="submit" value="Create Note">
+            </form>
+        </div>
+
+        <div>
+            {% for note in notes %}
+            <div class="note">
+                <h3>{{note.title}}</h3>
+                <h4>{{note.content}}</h4>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
