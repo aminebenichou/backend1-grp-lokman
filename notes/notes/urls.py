@@ -22,4 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Home),
     path('createNote/', views.createNote),
+    path('deleteNote/<int:id>/', views.delete_note),
+    path('editNote/<int:id>/', views.edit_note),
+    
 ]

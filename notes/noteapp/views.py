@@ -21,3 +21,20 @@ def createNote(request):
     )
 
     return redirect(Home)
+
+
+def delete_note(request, id):
+    note = Note.objects.get(id=id)
+    note.delete()
+    return redirect(Home)
+
+
+def edit_note(request, id):
+    note = Note.objects.get(id=id)
+    if request.method == 'POST':
+        note.title = request.POST['title']
+        note.content = request.POST['notecontent']
+        note.save()
+        return redirect(Home)
+    else:
+        return render(request, 'edit.html', {'note': note})

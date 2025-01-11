@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Note App</title>
 </head>
 
 <body>
@@ -17,28 +17,58 @@
             height: fit-content;
         }
 
-        .container div {
-            width: 50%;
+        .form-container {
+            width: 100%;
             padding: 20px;
             background-color: white;
             margin: 20px;
             border-radius: 25px;
             display: flex;
-            flex-direction: column;
-            
+            /* flex-direction: column; */
+
+        } 
+
+        .notes {
+            width: 100%;
+            padding: 20px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 25px;
+            display: flex;
+            flex-wrap: wrap;
+
         }
-        .note{
+
+        .note {
             border: 1px solid grey;
-            
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            height: fit-content;
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
-        .note:hover{
+        .note div {
+            margin: 10px;
+        }
+        .note div a {
+            margin: 10px;
+        }
+        .note-content{
+            display: flex;
+            flex-direction: column;
+        }
+        .note:hover {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             background-color: aliceblue;
             font-size: large;
             cursor: pointer;
         }
-        form{
+
+        form {
             display: flex;
+            width: 100%;
             flex-direction: column;
             justify-items: center;
             justify-content: center;
@@ -46,27 +76,30 @@
             margin-top: auto;
             margin-bottom: auto;
         }
-        form input{
+
+        form input {
             margin: 10px;
             padding: 5px;
             height: 55px;
             border-radius: 25px;
             font-size: large;
         }
-        #btn{
+
+        #btn {
             border: none;
             background-color: blueviolet;
             font-size: large;
             font-weight: bold;
             color: white;
         }
-        #btn:hover{
+
+        #btn:hover {
             cursor: pointer;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
     </style>
     <div class="container">
-        <div>
+        <div class="form-container">
             <form action="/createNote/" method="post">
                 {% csrf_token %}
                 <input type="text" name="Title" placeholder="Title">
@@ -75,11 +108,26 @@
             </form>
         </div>
 
-        <div>
+        <div class="notes">
             {% for note in notes %}
             <div class="note">
-                <h3>{{note.title}}</h3>
-                <h4>{{note.content}}</h4>
+                <div class="note-content">
+                    <h3>{{note.title}}</h3>
+                    <h4>{{note.content}}</h4>
+                </div>
+                <div>
+                    <a href="/editNote/{{note.id}}/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="orange" class="bi bi-pen" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+                          </svg>
+                    </a>
+
+                    <a href="/deleteNote/{{note.id}}/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
             {% endfor %}
         </div>
