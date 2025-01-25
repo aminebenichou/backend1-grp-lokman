@@ -132,6 +132,10 @@
             {% endfor %}
         </div>
     </div>
+    <form action="/signout/" method="post">
+        {% csrf_token %}
+        <input id="btn" type="submit" value="Logout">
+    </form>
 </body>
 
 </html>

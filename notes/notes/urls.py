@@ -24,5 +24,7 @@ urlpatterns = [
     path('createNote/', views.createNote),
     path('deleteNote/<int:id>/', views.delete_note),
     path('editNote/<int:id>/', views.edit_note),
-    
+    path('signup/', views.SignUpView),
+    path('signin/', views.SignInView),
+    path('signout/', views.SignOutView),
 ]
